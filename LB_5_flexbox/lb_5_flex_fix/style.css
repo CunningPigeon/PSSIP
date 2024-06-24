@@ -1,0 +1,56 @@
+header,
+footer {
+    display: flex;
+
+    justify-content: center;
+    background-color: #f1f1f1;
+    border: #d2d2d2 solid; /* Цвет границы */
+    padding: 5px; /* Поля вокруг текста */
+}
+
+.line_1,
+.line_2,
+.line_3,
+.line_4,
+.line_5,
+.line_6 {
+    display: flex;
+    justify-content: space-around;
+    justify-items: center;
+    text-align: center;
+    margin: 5px;
+}
+.ln_1,
+.ln_6 {
+    width: 635px;
+}
+.block{
+    border: #6e6e6e solid; /* Цвет границы */
+    padding: 5px; /* Поля вокруг текста */
+    background-color: #f1f1f1;
+    margin: 5px 5px 5px 5px 5px;
+}
+.ln_2,
+.ln_5 {
+    width: 965px;
+    text-decoration: column;
+}
+.ln_4 {
+    width: 1975px;
+}
+.ln_3 {
+    width: 475px;
+}
+.line_3 {
+    height: 200px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.line_3>* {
+    flex: 1 1 80px;
+}
+
+
+

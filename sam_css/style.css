@@ -1,0 +1,22 @@
+h2{/* Каскадность продолжение*/
+    text-decoration: line-through;
+    color: red; /* Цвет шрифта */
+    text-align: justify; /* Выравнивание по ширине */
+}
+a:link{
+    color: aqua;
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+}
+a:visited {
+    color: red; /* Цвет посещенных ссылок */
+    text-decoration: underline; /* Подчеркивание у ссылки */
+}
+a:hover {
+    color: #005c83;
+    text-decoration: underline; /* Подчеркивание у ссылки */
+}
+a:active { 
+    color: aqua;
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+}
+

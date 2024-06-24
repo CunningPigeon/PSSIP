@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Document</title>
+    <script src="script_01.js"></script>
+    <script>
+        function time() {
+        const currentDate = new Date();
+        const seconds = currentDate.getSeconds();
+        const hours = currentDate.getHours();
+
+        const formattedDate = "" + seconds + " - " + hours;
+        alert(formattedDate);
+        };
+        function name(){
+            for (let i = 0; i <= 6; i++) {
+
+                document.querySelector('.trfed').innerHTML = "Дунай Маргаритаn";
+            }
+        };
+    </script>
+</head>
+<body>
+    <button onclick='time()' id="myButton">Показать год</button>
+    <div class="result"></div>
+    <script>
+        var text = "";
+
+        var elem = document.getElementById("result");
+        function name() {
+            for (let i = 1; i <= 6; i++) {
+                text += "Дунай Маргрита " + i + "<br>";
+            }
+            document.querySelector('.result').innerHTML = text;
+        } 
+        name();
+    </script>
+    <button onclick='array()' id="myArray">Массив</button>
+    <div class="result_arr"></div>
+    <script>
+        let item = [3, 4, 9, 3, 5, 1, 7];
+        var result = "";
+        result += "Исходный массив -> " + item + "<br>";
+        item.push("8");
+        result += "Измененный массив (01) -> " + item + "<br>";
+        let minIndex = item.indexOf(Math.min(...item)); 
+        // console.log("Минимальный элемент: " + item[minIndex]); 
+        item.splice(minIndex, 1); 
+        // console.log("Массив после удаления минимального элемента: " + item); 
+        result += "Измененный массив (02) -> " + item + "<br>";
+        document.querySelector('.result_arr').innerHTML = result;
+    </script>
+
+<div class="form">
+    <input type="text" id="inputNumber" placeholder="Введите x" value="4">
+    <button onclick='formula()' id="calculateButton">Расчет по формуле</button>
+    <textarea id="resultTextarea" rows="4" cols="50"></textarea>
+</div>
+
+<div class="result_string"></div>
+<script>
+let s1 = "Я люблю Беларусь";
+let s2 = "Я учусь в политехническом коллежде";
+var result2 = "";
+console.log("Длина строки s2:", s2.length); // Длина строки s2: 34
+
+if (s1.includes("Беларусь")) {
+    result2 += "Слово 'Беларусь' присутствует в строке s1 <br>";
+} else {
+    result2 += "Слово 'Беларусь' не присутствует в строке s1 <br>";
+}
+
+let sixthSymbol = s2.charAt(5);
+let asciiCode = sixthSymbol.charCodeAt(0);
+
+result2 += "Шестой символ в строке s2:" + sixthSymbol + "<br>";
+result2 += "ASCII-код шестого символа:" + asciiCode + "<br>";
+
+document.querySelector('.result_string').innerHTML = result2 + s2.slice(0, 5) + "<b>" + sixthSymbol + "</b>" + s2.slice(6);
+</script>
+</body>
+</html>
