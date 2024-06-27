@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"> <!-- Мета-тег — Кодировка -->
+    <link rel="stylesheet" href="style1.css">
+    <title>Дунай Маргарита Николаевна</title>
+</head>
+
+<body>
+    <div>
+        <h2>ФИО: Дунай Маргарита Николаевна</h2>
+        <p class="group">Группа: ПЗТ-39</p>
+        <p class="kurs">Курс: <sup>3</sup></p>
+        <p class="wl">Мои увлечения: чтение</p>
+        <p><a href="#table">Таблица</a></p>
+    </div>
+    <div>
+        <ol start="2"> <!-- Список -->
+            <li>Зима</li>
+            <li>Весна</li>
+            <li>Лето</li>
+        </ol>
+    </div>
+    <img class="img" src="img/кот.png" alt="Кот" title="Кот">
+    <img src="img/кот.png" alt="Кот" title="Кот">
+    <p><a href="mailto:margaritik.d@gmail.com">margaritik.d@gmail.com</a></p>
+    <div class="table" id="table">
+        <table>
+            <caption>Таблица</caption>
+
+            <tr>
+                <td rowspan="2" style="background-color: rgb(207, 208, 209);">Ромашка</td>
+                <td rowspan="1">Гвоздика</td>
+                <td rowspan="1" style="background-color: rgb(165, 206, 241);"></td>
+            </tr>
+            <tr>
+                <td>Василек</td>
+                <td>Лилия</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="background-color: rgb(200, 200, 200);"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="form">
+        <form action="php/" method="post">
+            <div class="row">
+                <label>Сервер</label>
+                <label>192.168.0.80</label>
+                <label>Сообщение</label>
+                <label>Protected</label>
+                <label for="name">Имя</label>
+                <input type="text" name="name" placeholder="Имя" required>
+                <label for="pass">Пароль</label>
+                <input type="password" name="pass" class="items" placeholder="Пароль" required>
+                <input class="items" id="me" type="checkbox">
+                <label class="items" for="me">Запомнить меня</label>
+            </div>
+            <div class="button">
+                <button class="items" type="submit">Ок</button>
+                <input class="items" type="reset">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
