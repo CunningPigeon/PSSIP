@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №13-14</title>
+    <script src="js\styles.js"></script>
+    <!-- <script src="js\change.js"></script> -->
+    <script>
+        // Функция для получения текущего URL
+        function showURL() {
+            var url = window.location.href;
+            document.getElementById("url").textContent = url;
+        }
+
+        // Функция для удаления изображения
+        function removeImage() {
+            var image = document.querySelector("img");
+            image.parentNode.removeChild(image);
+        }
+
+        function openComputerNameWindow() {
+            var computerName = window.location.hostname;
+            var newWindowFeatures = "width=300,height=500,scrollbars=yes,status=no";
+            var newWindow = window.open("", "_blank", newWindowFeatures);
+            newWindow.document.write("<h1>Имя компьютера в сети Интернет:" + computerName + "</h1>");
+            // newWindow.document.write("<p>" + computerName + "</p>");
+        }
+
+
+    </script>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <p class="name" id="element-1">Дунай Маргарита Николаевна</p>
+    <div class="mylink" id="element-2"><a href="https://www.twitch.tv" id="custom-link" target="_blank">Мой любимый
+            сайт</a></div>
+    <div class="myimage" id="element-3"><img src="images\photo.png" onclick="removeImage()" alt="My photo"
+            title="Любое изображение"></div>
+    <button onclick="showURL()">Посмотреть URL</button>
+    <p id="url"></p>
+    <button onclick="openComputerNameWindow()">Показать имя компьютера</button>
+    <!-- <img src="image.jpg" onclick="removeImage()" alt="Изображение"> -->
+
+    <script>
+        var link = document.getElementById('custom-link');
+
+        link.addEventListener('mouseover', function () {
+            link.style.color = 'blue';
+            link.style.fontFamily = 'verdana';
+            link.style.fontSize = '25px';
+            link.style.fontWeight = 'bold';
+            link.style.border = '1px solid green';
+        });
+
+        link.addEventListener('mouseout', function () {
+            link.style.color = '';
+            link.style.fontFamily = '';
+            link.style.fontSize = '';
+            link.style.fontWeight = '';
+            link.style.border = '';
+        });
+
+
+    </script>
+    <form action="">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" onblur="validateName()">
+        <br>
+        <label for="surname">Фамилия</label>
+        <input id="surname" placeholder="Фамилия" onblur="validateSurname()">
+        <br>
+        <label for="surname">Почта</label>
+        <input type="email" placeholder="alexander@itchief.ru" id="email" onblur="validateEmail()">
+        <br>
+        <label for="password">Пароль</label>
+        <input type="password" id="password" placeholder="Пароль" onblur="validatePas()">
+        <br>
+        <label for="Ppassword">Повтор пароля</label>
+        <input type="password" id="Ppassword" placeholder="Повтор пароля" onblur="validatePPas()">
+
+        <br>
+        <div id="Error" class="error"></div>
+    </form>
+
+    <script>
+        function validateName() {
+            var nameInput = document.getElementById("name");
+            var name = nameInput.value.trim();
+            var Error = document.getElementById("Error");
+
+            if (name === "") {
+                Error.textContent = "Поле должно быть заполнено.";
+                nameInput.classList.add("error");
+            } else if (!/^[a-zA-Zа-яА-Я\s]+$/.test(name)) {
+                Error.textContent = "Имя должно содержать только буквы и пробелы.";
+                nameInput.classList.add("error");
+            } else if (name.length > 50) {
+                Error.textContent = "Имя не должно превышать 50 символов.";
+                nameInput.classList.add("error");
+            } else {
+                Error.textContent = "";
+                nameInput.classList.remove("error");
+            }
+        }
+        function validateSurname() {
+            var nameInput = document.getElementById("surname");
+            var name = nameInput.value.trim();
+            var Error = document.getElementById("Error");
+
+            if (name === "") {
+                Error.textContent = "Поле должно быть заполнено.";
+                nameInput.classList.add("error");
+            } else if (!/^[a-zA-Zа-яА-Я\s]+$/.test(name)) {
+                Error.textContent = "Фамилия должна содержать только буквы и пробелы.";
+                nameInput.classList.add("error");
+            } else if (name.length > 50) {
+                Error.textContent = "Фамилия не должна превышать 50 символов.";
+                nameInput.classList.add("error");
+            } else {
+                Error.textContent = "";
+                nameInput.classList.remove("error");
+            }
+        }
+        function validateEmail() {
+            var nameInput = document.getElementById("email");
+            var name = nameInput.value.trim();
+            var Error = document.getElementById("Error");
+
+            if (name === "") {
+                Error.textContent = "Поле должно быть заполнено.";
+                nameInput.classList.add("error");
+            } else if (name.length > 50) {
+                Error.textContent = "Почта не должна превышать 50 символов.";
+                nameInput.classList.add("error");
+            } else {
+                Error.textContent = "";
+                nameInput.classList.remove("error");
+            }
+        }
+        function validatePas() {
+            var nameInput = document.getElementById("password");
+            var name = nameInput.value.trim();
+            var Error = document.getElementById("Error");
+
+            if (name === "") {
+                Error.textContent = "Поле должно быть заполнено.";
+                nameInput.classList.add("error");
+            } else if (/^(?=.*\d)\w{3,20}$/.test(name)) {
+                Error.textContent = "Пароль не должен содержать спец. символы";
+                nameInput.classList.add("error");
+            } else if (name.length > 50) {
+                Error.textContent = "Пароль не должен превышать 50 символов.";
+                nameInput.classList.add("error");
+            } else {
+                Error.textContent = "";
+                nameInput.classList.remove("error");
+            }
+        }
+        function validatePPas() {
+            var nameInput = document.getElementById("Ppassword");
+            var name = nameInput.value.trim();
+            var Error = document.getElementById("Error");
+
+            if (name === "") {
+                Error.textContent = "Поле повтор пароля должно быть заполнено.";
+                nameInput.classList.add("error");
+            } else if (/^(?=.*\d)\w{3,20}$/.test(name)) {
+                Error.textContent = "Повтор Пароля не должен содержать спец. символы";
+                nameInput.classList.add("error");
+            } else if (name.length > 50) {
+                Error.textContent = "Повтор Пароля не должен превышать 50 символов.";
+                nameInput.classList.add("error");
+            } else {
+                Error.textContent = "";
+                nameInput.classList.remove("error");
+            }
+        }
+        // function validateName() {
+        //     var name = document.getElementById('name').value;
+        //     var namePattern = /^[a-zA-Zа-яА-Я]+$/; // Регулярное выражение для проверки формата
+        //     var maxLength = 50; // Максимально допустимая длина
+        //     var minLength = 2; // Минимально допустимая длина
+
+        //     if (!name) {
+        //         alert('Поле имени не должно быть пустым.');
+        //         return false;
+        //     } else if (!namePattern.test(name)) {
+        //         alert('Имя должно содержать только буквы.');
+        //         return false;
+        //     } else if (name.length > maxLength) {
+        //         alert('Имя слишком длинное. Допустимая длина: до ' + maxLength + ' символов.');
+        //         return false;
+        //     } else if (name.length < minLength) {
+        //         alert('Имя слишком короткое. Допустимая длина: от ' + minLength + ' символов.');
+        //         return false;
+        //     }
+
+        //     alert('Имя введено корректно.');
+        //     return true;
+        // }
+
+        // Пример использования:
+        // <input type="text" id="name" title="Введите ваше имя" onblur="validateName()">
+    </script>
+</body>
+
+</html>

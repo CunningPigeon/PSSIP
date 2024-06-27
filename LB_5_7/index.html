@@ -11,29 +11,44 @@
     <link rel="stylesheet" type="text/css" href="style/desctop.css">
     <link rel="stylesheet" type="text/css" href="style/setca.css">
     
-
+    <script src="file.js"></script>
     <title>LB_5_7</title>
+    <script type="text/javascript">
+        function show_alert1()
+        {
+        alert("Внутри head");
+        }
+        $('body').on('input', '.input__field-email', function(){
+	this.value = this.value.replace(/[^a-z0-9\s\@\.\-\_]/gi, '');
+});
+        </script>
 </head>
 
 <body>
-    <header class="hf_header">
+    <script type="text/javascript">
+        function show_alert2()
+        {
+        alert("Внутри body");
+        }
+        </script>
+    <header class="hf_header" >
         Шапка
     </header>
     <div class="line_1">
-        <div class="ln_1 block b1">
+        <div class="ln_1 block b1" onclick="show_alert1()">
             <p>1</p>
         </div>
-        <div class="ln_1 block b2">
+        <div class="ln_1 block b2" onclick="show_alert2()">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem nesciunt totam eligendi voluptates!
                 Aperiam, quos sunt maiores quasi quia delectus voluptates eos qui in porro non soluta repellendus
                 voluptate suscipit.</p>
         </div>
-        <div class="ln_1 block b3">
+        <div class="ln_1 block b3" onclick="alert('Внутри объекта')">
             <p>3</p>
         </div>
     </div>
     <div class="line_2">
-        <div class="ln_2 block b4">
+        <div class="ln_2 block b4" onclick="show_alert3()">
             <p>4</p>
         </div>
         <div class="ln_2 block b5">
@@ -85,43 +100,171 @@
                 <div class="text">
                     <h1>Регистрация</h1>
                 </div>
+                <form name="myForm" onsubmit="return validateForm()" method="post">
                 <div class="FI">
                     <div class="text-field text-field_floating-2">
-                        <input class="text-field__input" id="name" name="name" value="Имя"
-                            placeholder="Имя">
+                        <input class="text-field__input"  id="name" name="name" 
+                            placeholder="Имя" required >
                         <label class="text-field__label"  for="name">Имя</label>
                     </div>
                     <div class="text-field text-field_floating-2">
-                        <input class="text-field__input"  id="surname"  value="Фамилия"
-                            placeholder="Имя">
-                        <label class="text-field__label" for="surname">Фамилия</label>
+                        <input class="text-field__input"  id="surname" name="surname"
+                            placeholder="Имя" required >
+                        <label class="text-field__label" for="surname" >Фамилия</label>
                     </div>
                 </div>
                 <div>
                     <div class="text-field">
                         <div class="text-field__icon-2 text-field__icon-2_email">
-                            <input class="text-field__input" type="email" placeholder="alexander@itchief.ru"
-                                value="alexander@itchief.ru">
+                            <input class="text-field__input" id="email" type="email" placeholder="alexander@itchief.ru"
+                            required>
                         </div>
                     </div>
                 </div>
                 <div class="PASS">
                     <div class="text-field text-field_floating-2">
-                        <input class="text-field__input" type="password" id="password"  value="123"
-                            placeholder="Имя">
-                        <label class="text-field__label" for="password">Пароль</label>
+                        <input class="text-field__input" type="password" id="password" 
+                            placeholder="Имя" required>
+                        <label class="text-field__label" id="password" for="password">Пароль</label>
                     </div>
                     <div class="text-field text-field_floating-2">
-                        <input class="text-field__input" type="password" id="Ppassword"  value="123"
-                            placeholder="Имя">
-                        <label class="text-field__label" for="Ppassword">Повтор пароля</label>
+                        <input class="text-field__input" type="password" id="confirmPassword"  
+                            placeholder="Имя" required>
+                        <label class="text-field__label" for="confirmPassword">Повтор пароля</label>
                     </div>
                 </div>
                 <div class="button">
                     <button type="submit" class="reg_butt">Регистрация</button>
                 </div>
+                </form>
             </div>
+        
         </div>
+        <script>
+
+            // Функция валидации формы
+function validateForm() {
+  // Получение значений из формы
+  var name = document.forms["myForm"]["name"].value;
+  var surname = document.forms["myForm"]["surname"].value;
+  var email = document.forms["myForm"]["email"].value;
+  var password = document.forms["myForm"]["password"].value;
+  var confirmPassword = document.forms["myForm"]["confirmPassword"].value;
+
+  // Регулярные выражения для проверки данных
+  var nameRegex = /^[a-zA-Zа-яА-Я]+$/;
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+  // Проверка имени
+  if (!nameRegex.test(name)) {
+    alert("Имя может содержать только буквы.");
+    return false;
+  }
+
+  // Проверка фамилии
+  if (!nameRegex.test(surname)) {
+    alert("Фамилия может содержать только буквы.");
+    return false;
+  }
+
+  // Проверка почты
+  if (!emailRegex.test(email)) {
+    alert("Введите корректный адрес электронной почты.");
+    return false;
+  }
+
+  // Проверка пароля
+  if (!passwordRegex.test(password)) {
+    alert("Пароль должен содержать минимум 6 символов, включая одну цифру, одну заглавную и одну строчную букву.");
+    return false;
+  }
+
+  // Проверка совпадения паролей
+  if (password !== confirmPassword) {
+    alert("Пароли не совпадают.");
+    return false;
+  }
+
+  // Если все проверки пройдены
+  return true;
+}
+            
+            // function validateName() {
+            //     var nameInput = document.getElementById("name");
+            //     var name = nameInput.value.trim();
+            //     var Error = document.getElementById("Error");
+    
+            //     if (name === "") {
+            //         alert("Поле должно быть заполнено.");
+            //     } else if (!/^[a-zA-Zа-яА-Я\s]+$/.test(name)) {
+            //         alert("Имя должно содержать только буквы и пробелы.");
+            //     } else if(name.length < 2) {
+            //         alert("Почта должна превышать 2 символа.");
+            //     }else if (name.length > 50) {
+            //         alert("Имя не должно превышать 50 символов.");
+            //     }
+            // }
+            // function validateSurname() {
+            //     var nameInput = document.getElementById("surname");
+            //     var name = nameInput.value.trim();
+            //     var Error = document.getElementById("Error");
+    
+            //     if (name === "") {
+            //         alert("все поля должны быть заполнены.");
+            //     } else if (!/^[a-zA-Zа-яА-Я\s]+$/.test(name)) {
+            //         alert("Фамилия должна содержать только буквы и пробелы.");
+            //     } else if(name.length < 2) {
+            //         alert("Почта должна превышать 2 символа.");
+            //     }else if (name.length > 50) {
+            //         alert("Фамилия не должна превышать 50 символов.");
+            //     }
+            // }
+            // function validateEmail() {
+            //     var nameInput = document.getElementById("email");
+            //     var name = nameInput.value.trim();
+            //     var Error = document.getElementById("Error");
+    
+            //     if (name === "") {
+            //         alert("все поля должны быть заполнены.");
+            //     } else if(name.length < 2) {
+            //         alert("Почта должна превышать 2 символа.");
+            //     }
+            //     else if (name.length > 50) {
+            //         alert("Почта не должна превышать 50 символов.");
+            //     } 
+            // }
+            // function validatePas() {
+            //     var nameInput = document.getElementById("password");
+            //     var name = nameInput.value.trim();
+            //     var Error = document.getElementById("Error");
+    
+            //     if (name === "") {
+            //         alert("все поля должны быть заполнены.");
+            //     } else if (/^(?=.*\d)\w{3,20}$/.test(name)) {         
+            //         alert("Пароль не должен содержать спец. символы");
+            //     } else if(name.length < 2) {
+            //         alert("Почта должна превышать 2 символа.");
+            //     } else if (name.length > 50) {
+            //         alert("Пароль не должен превышать 50 символов.");
+            //     }
+            // }
+            // function validatePPas() {
+            //     var nameInput = document.getElementById("Ppassword");
+            //     var name = nameInput.value.trim();
+            //     var Error = document.getElementById("Error");
+    
+            //     if (name === "") {
+            //         alert("все поля должны быть заполнены.");
+            //     } else if(name.length < 2) {
+            //         alert("Почта должна превышать 2 символа.");
+            //     }else if (/^(?=.*\d)\w{3,20}$/.test(name)) {
+            //         alert("Повтор Пароля не должен содержать спец. символы");
+            //     } else if (name.length > 50) {
+            //         alert("Повтор Пароля не должен превышать 50 символов.");
+            //     } 
+            // }
+        </script>
         <div class="ln_3 block b10">
             <p>10</p>
         </div>
