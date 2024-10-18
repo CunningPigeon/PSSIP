@@ -5,24 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>События сенсорных экранов</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        #touchArea {
-            width: 300px;
-            height: 300px;
-            background-color: #4CAF50;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 24px;
-            border-radius: 10px;
-            user-select: none; /* Отключаем выделение текста */
+        #movableElement {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
     </style>
 </head>
@@ -31,30 +20,45 @@
     <!-- <p><a href="../index.html">На главную</a></p> -->
     <!-- <p><a href="/index.html">На предыдущую</a></p> -->
 
-<div id="touchArea">Сенсорная зона</div>
+    <div id="movableElement"></div>
 
 <script>
-    const touchArea = document.getElementById('touchArea');
+var movableElement = document.getElementById('movableElement');
 
-    touchArea.addEventListener('touchstart', (event) => {
-        touchArea.style.backgroundColor = '#FF5722';
-        touchArea.innerText = 'Начало касания!';
+movableElement.addEventListener('touchstart', function(event) {
+    // Предотвращаем стандартное поведение браузера
+    event.preventDefault();
+
+    // Получаем первое касание (touch)
+    var touch = event.touches[0];
+
+    // Получаем начальные координаты элемента
+    var startX = touch.clientX - movableElement.offsetLeft;
+    var startY = touch.clientY - movableElement.offsetTop;
+
+    // Добавляем обработчик события touchmove
+    document.addEventListener('touchmove', moveElement);
+
+    // Добавляем обработчик события touchend
+    document.addEventListener('touchend', function() {
+        // Удаляем обработчики событий touchmove и touchend
+        document.removeEventListener('touchmove', moveElement);
+        document.removeEventListener('touchend', arguments.callee);
     });
 
-    touchArea.addEventListener('touchmove', (event) => {
-        touchArea.innerText = 'Движение!';
-        event.preventDefault(); // Предотвращаем прокрутку страницы
-    });
+    // Функция для перемещения элемента
+    function moveElement(event) {
+        var touch = event.touches[0];
 
-    touchArea.addEventListener('touchend', (event) => {
-        touchArea.style.backgroundColor = '#4CAF50';
-        touchArea.innerText = 'Касание завершено!';
-    });
+        // Вычисляем новые координаты элемента
+        var newX = touch.clientX - startX;
+        var newY = touch.clientY - startY;
 
-    touchArea.addEventListener('touchcancel', (event) => {
-        touchArea.style.backgroundColor = '#FF9800';
-        touchArea.innerText = 'Касание отменено!';
-    });
+        // Устанавливаем новые координаты элемента
+        movableElement.style.left = newX + 'px';
+        movableElement.style.top = newY + 'px';
+    }
+});
 </script>
 
 </body>
