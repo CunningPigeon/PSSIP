@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пользовательская форма</title>
+</head>
+<body>
+    <p><a href="../index.html">На главную</a></p>
+<h1>Задание 1</h1>
+<h2>Пользовательская форма</h2>
+<form id="userForm">
+    <label for="name">Имя:</label>
+    <input type="text" id="name" name="name"><br><br>
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email"><br><br>
+
+    <label for="subscribe">Подписка на новости:</label>
+    <input type="checkbox" id="subscribe" name="subscribe"><br><br>
+
+    <label>Пол:</label>
+    <input type="radio" id="male" name="gender" value="Мужской">
+    <label for="male">Мужской</label>
+    <input type="radio" id="female" name="gender" value="Женский">
+    <label for="female">Женский</label><br><br>
+
+    <label for="country">Страна:</label>
+    <select id="country" name="country">
+        <option value="ru">Россия</option>
+        <option value="us">США</option>
+        <option value="de">Германия</option>
+    </select><br><br>
+
+    <button type="button" onclick="submitForm()">Отправить</button>
+</form>
+
+
+<script>
+function submitForm() {
+    // Извлечение данных из формы
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const sub = document.getElementById('subscribe').checked;
+    const gen = document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : 'Не указан';
+    const count = document.getElementById('country').value;
+
+    const nn = sub ? 'Да' : 'Нет';
+    // Формирование сообщения
+    let mess = "Имя: " + name + "\nEmail: " + email + "\nПодписка на новости: " + nn + "\nПол: " + gen + "\nСтрана: " + count;
+
+    // Вывод данных в диалоговое окно
+    alert(mess);
+}
+</script>
+<h1>Задание 2</h1>
+<h2>Форма с валидацией HTML5</h2>
+<form id="formHTML5">
+    <label for="name">Имя (обязательно):</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email (формат: example@domain.com):</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="age">Возраст (число от 1 до 100):</label>
+    <input type="number" id="age" name="age" min="1" max="100" required><br><br>
+
+    <button type="submit">Отправить</button>
+</form>
+
+<h2>Форма с валидацией JS</h2>
+<form id="formJS">
+    <label for="name">Имя (обязательно):</label>
+    <input type="text" id="jsname" name="name"><br><br>
+
+    <label for="email">Email (формат: example@domain.com):</label>
+    <input id="jsemail" name="email"><br><br>
+
+    <label for="age">Возраст (число от 1 до 100):</label>
+    <input type="number" id="jsage" name="age"><br><br>
+
+    <button type="submit">Отправить</button>
+</form>
+
+<script>
+    document.getElementById('formJS').addEventListener('submit', function(event) {
+        event.preventDefault(); // Отменяем стандартное поведение формы
+    
+        const name = document.getElementById('jsname').value;
+        const email = document.getElementById('jsemail').value;
+        const age = document.getElementById('jsage').value;
+    
+        if (!name) {
+            alert('Имя не может быть пустым!');
+            return;
+        }
+    
+        if (!email.includes('@')) {
+            alert('Введите корректный email!');
+            return;
+        }
+    
+        if (age < 1 || jsage > 100) {
+            alert('Возраст должен быть от 1 до 100!');
+            return;
+        }
+    
+        alert('Форма успешно отправлена!');
+    });
+</script>
+
+<h2>Форма с валидацией при помощи регулярных выражений</h2>
+<form id="formReg">
+    <label for="name">Имя (обязательно):</label>
+    <input type="text" id="regname" name="name"><br><br>
+
+    <label for="email">Email (формат: example@domain.com):</label>
+    <input id="regemail" name="email" ><br><br>
+
+    <label for="phone">Телефон:</label>
+    <input type="text"id="regphone" name="phone" ><br><br>
+    <label for="age">Возраст (число от 1 до 100):</label>
+    <input type="number" id="regage" name="age" ><br><br>
+
+    <button type="submit">Отправить</button>
+</form>
+<script>
+    // Валидация с использованием регулярных выражений
+
+    document.getElementById('formReg').addEventListener('submit', function(event) {
+    event.preventDefault(); // Отменяем стандартное поведение формы
+
+    const name = document.getElementById('regname').value;
+    const email = document.getElementById('regemail').value;
+    const age = document.getElementById('regage').value;
+    const phone = document.getElementById('regphone').value;
+
+    // Регулярное выражение для проверки имени (только буквы)
+    const namePattern = /^[a-zA-Zа-яА-ЯёЁs]+$/;
+    // Регулярное выражение для проверки email
+    const emailPattern = /^[^s@]+@[^s@]+.[^s@]+$/;
+    // Регулярное выражение для проверки phone
+    const phonePattern = /^\+\d{3} \(\d{2}\) \d{3} \d{2} \d{2}$/;
+    // phonePattern = /^\d{3}-\d{3}-\d{4}$/;
+
+
+    if (!name || !namePattern.test(name)) {
+        alert('Введите корректное имя (только буквы)!');
+        return;
+    }
+
+    if (!email || !emailPattern.test(email)) {
+        alert('Введите корректный email!');
+        return;
+    }
+    if (!phone || !phonePattern.test(phone)) {
+        alert('Введите корректный телефон!');
+        return;
+    }
+    
+    if (age < 1 || age > 100) {
+        alert('Возраст должен быть от 1 до 100!');
+        return;
+    }
+    
+
+    alert('Форма успешно отправлена!');
+});
+</script>
+
+<h1>Задание 3</h1>
+<h2>Примеры регулярных выражений</h2>
+
+<div class="example">
+    <strong>Пример 1: Проверка email</strong><br>
+    <code>const emailPattern = /^[^s@]+@[^s@]+.[^s@]+$/;</code><br>
+    <code>emailPattern.test("example@domain.com");</code><br>
+    <p>Результат: <span class="result" id="emailResult"></p></span>
+</div>
+
+<div class="example">
+    <strong>Пример 2: Поиск цифр</strong><br>
+    <code>const digitPattern = /(d+)/;</code><br>
+    <code>const result2 = digitPattern.exec("There are 42 apples.");</code>
+    <code>document.getElementById("digitResult").textContent = result2 ? result2[0] : "Нет совпадений";</code><br>
+    <p>Результат: <span class="result" id="digitResult"></p></span>
+</div>
+
+<div class="example">
+    <strong>Пример 3: Разделение строки</strong><br>
+    <code>const strSplit = "one, two, three";</code><br>
+    <code>const splitResult = strSplit.split(/,s*/);</code>
+    <code>document.getElementById("splitResult").textContent = JSON.stringify(splitResult);</code><br>
+    <p>Результат: <span class="result" id="splitResult"></p></span>
+</div>
+
+<div class="example">
+    <strong>Пример 4: Поиск совпадений</strong><br>
+    <code>const strMatch = "The rain in Spain stays mainly in the plain.";</code><br>
+    <code>const matches = strMatch.match(/ain/g);</code><br>
+    <code>document.getElementById("matchResult").textContent = matches ? matches.join(", ") : "Нет совпадений";</code><br>
+    <p>Результат: <span class="result" id="matchResult"></p></span>
+</div>
+
+<div class="example">
+    <strong>Пример 5: Поиск индекса</strong><br>
+    <code>const strSearch = "Hello world!";</code><br>
+    <code>const index = strSearch.search(/world/);</code><br>
+    <code>document.getElementById("searchResult").textContent = index;</code><br>
+    <p>Результат: <span class="result" id="searchResult"></p></span>
+</div>
+
+<div class="example">
+    <strong>Пример 6: Замена текста</strong><br>
+    <code>const strReplace = "I like cats.";</code><br>
+    <code>const newStr = strReplace.replace(/cats/, "dogs");</code><br>
+    <code>document.getElementById("replaceResult").textContent = newStr;</code><br>
+    <p>Результат: <span class="result" id="replaceResult"></p></span>
+</div>
+
+<div class="example">
+    <strong>Пример 7: Использование флагов</strong><br>
+    <code>const caseInsensitivePattern = /hello/i;</code><br>
+    <code>document.getElementById("flagResult").textContent = caseInsensitivePattern.test("Hello");</code><br>
+    <p>Результат: <span class="result" id="flagResult"></p></span>
+</div>
+
+<script>
+// Пример 1: test()
+const emailPattern = /^[^s@]+@[^s@]+.[^s@]+$/;
+document.getElementById("emailResult").textContent = emailPattern.test("example@domain.com"); // true
+
+// Пример 2: exec()
+const digitPattern = /(d+)/;
+const result2 = digitPattern.exec("There are 42 apples.");
+document.getElementById("digitResult").textContent = result2 ? result2[0] : "Нет совпадений"; // "42"
+
+// Пример 3: split()
+const strSplit = "one, two, three";
+const splitResult = strSplit.split(/,s*/);
+document.getElementById("splitResult").textContent = JSON.stringify(splitResult); // ["one", "two", "three"]
+
+// Пример 4: match()
+const strMatch = "The rain in Spain stays mainly in the plain.";
+const matches = strMatch.match(/ain/g);
+document.getElementById("matchResult").textContent = matches ? matches.join(", ") : "Нет совпадений"; // "ain, ain, ain"
+
+// Пример 5: search()
+const strSearch = "Hello world!";
+const index = strSearch.search(/world/);
+document.getElementById("searchResult").textContent = index; // 6
+
+// Пример 6: replace()
+const strReplace = "I like cats.";
+const newStr = strReplace.replace(/cats/, "dogs");
+document.getElementById("replaceResult").textContent = newStr; // "I like dogs."
+
+// Пример 7: Использование флагов
+const caseInsensitivePattern = /hello/i;
+document.getElementById("flagResult").textContent = caseInsensitivePattern.test("Hello"); // true
+</script>
+
+
+</body>
+</html>

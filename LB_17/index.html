@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пример событий</title>
+    <style>
+        #draggable {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            cursor: grab;
+            margin: 20px;
+        }
+        #dropzone {
+            width: 200px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            margin: 20px;
+            position: relative;
+        }
+        #blueRect{
+            width:100px;
+            height:100px;
+            background-color:blue;
+        }
+        #area {
+          border: 1px solid black;
+          width: 90%;
+          height: 180px;
+          cursor: pointer;
+          overflow: scroll;
+          user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Пример событий в JavaScript</h1>
+<p><a href="../index.html">На главную</a></p>
+<p><a href="sesor.html">На сенсорную зону</a></p>
+
+<!-- Элемент для клика -->
+<div id="blueRect"></div>
+
+
+<button id="myElement">Нажми меня!</button>
+
+<!-- Элемент для перетаскивания -->
+<div id="draggable" draggable="true">Перетаскивай меня!</div>
+
+<!-- Зона для сброса -->
+<div id="dropzone">Сбрось сюда</div>
+
+<!--  -->
+<div id="area">
+    Событие казателя
+    </div>
+
+<script>
+    // Событие клика
+    function setColor(e){
+        if(e.type==="mouseover")
+            e.target.style.backgroundColor = "green";
+        else if(e.type==="mouseout")
+            e.target.style.backgroundColor = "blue";
+    }
+    const blueRect = document.getElementById("blueRect");
+    blueRect.addEventListener("mouseover", setColor);
+    blueRect.addEventListener("mouseout", setColor);
+
+    // События клавиатуры
+    function runOnKeys(func, ...codes) {
+        let pressed = new Set();
+  
+        document.addEventListener('keydown', function(event) {
+          pressed.add(event.code);
+  
+          for (let code of codes) {
+            if (!pressed.has(code)) {
+              return;
+            }
+          }
+          pressed.clear();
+  
+          func();
+        });
+  
+        document.addEventListener('keyup', function(event) {
+          pressed.delete(event.code);
+        });
+  
+      }
+  
+      runOnKeys(
+        () => alert("Привет! Была нажата Q"),
+        "KeyQ"
+      );
+
+      
+    // События перетаскивания
+    const draggable = document.getElementById('draggable');
+    const dropzone = document.getElementById('dropzone');
+
+    draggable.addEventListener('dragstart', function(event) {
+        event.dataTransfer.setData('text/plain', event.target.id);
+        event.dataTransfer.effectAllowed = "move";
+    });
+
+    dropzone.addEventListener('dragover', function(event) {
+        event.preventDefault(); // Позволяет сбросить элемент
+        event.dataTransfer.dropEffect = "move"; // Указывает эффект перетаскивания
+    });
+
+    dropzone.addEventListener('drop', function(event) {
+        event.preventDefault();
+        const data = event.dataTransfer.getData('text/plain');
+        const draggedElement = document.getElementById(data);
+        dropzone.appendChild(draggedElement);
+        alert('Элемент был сброшен!');
+    });
+
+    // Multi
+    document.onpointerdown = document.onpointerup = log;
+    
+    function log(event) {
+      area.insertAdjacentHTML("beforeend", `
+        <div>${event.type} isPrimary=${event.isPrimary} pointerId=${event.pointerId}</div>
+      `)
+     area.scrollTop = 1e9;
+    }
+
+    // Событие прокрутки
+
+    function getBelarusDateTime() {
+    // Создаем объект даты для текущего времени
+    const now = new Date();
+
+    // Получаем временную зону UTC+3
+    const options = {
+        timeZone: 'Europe/Minsk',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false // 24-часовой формат
+    };
+
+    // Форматируем дату и время
+    const belarusDateTime = now.toLocaleString('ru-BY', options);
+
+    return belarusDateTime;
+}
+    function populate() {
+          while(true) {
+            let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+            if (windowRelativeBottom > document.documentElement.clientHeight + 1) break;
+            document.body.insertAdjacentHTML("beforeend", `<p>Date: ${getBelarusDateTime()} Время в Беларуси</p>`);
+          }
+        }
+      
+        window.addEventListener('scroll', populate);
+      
+        populate(); // инициализация документа
+
+
+    // Событие касания
+    document.addEventListener('touchstart', function(event) {
+        console.log('Коснулись экрана!');
+    });
+
+    function TestTime()
+        {
+          alert(`Date: ${getBelarusDateTime()} Время в Беларуси`);
+        }
+        
+        
+        window.setTimeout('TestTime()', 3000);
+</script>
+
+</body>
+</html>
