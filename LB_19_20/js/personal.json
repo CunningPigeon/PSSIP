@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": "Алена",
+        "email": "alena@mail.ru",
+        "phone": "+357258425145",
+        "age": 40
+    },
+    {
+        "id": 2,
+        "name": "Victor",
+        "email": "Victor@mail.ru",
+        "phone": "+357258425145",
+        "age": 45
+    },
+    {
+        "id": 3,
+        "name": "Oleg",
+        "email": "Oleg@mail.ru",
+        "phone": "+357258425145",
+        "age": 2
+    },
+    {
+        "id": 4,
+        "name": "Gena",
+        "email": "Gena@mail.ru",
+        "phone": "+357258425145",
+        "age": 54
+    },
+    {
+        "id": 5,
+        "name": "Fernando",
+        "email": "Fernando@mail.ru",
+        "phone": "+357258425145",
+        "age": 74
+    },
+    {
+        "id": 6,
+        "name": "Fern",
+        "email": "Fern@mail.ru",
+        "phone": "+357258425145",
+        "age": 19
+    }
+]

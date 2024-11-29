@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS</title>
+</head>
+<body>
+    <p><a href="../index.html">На главную</a></p>
+    <form id="myForm">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="phone">Телефон:</label>
+        <input type="text" id="phone" name="phone" required><br><br>
+
+        <label for="message">Сообщение:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Сохранить</button>
+    </form>
+    <button id="showData">Показать сохраненные данные localStorage</button>
+    <button id="showDataJSON">Показать сохраненные данные JSON</button>
+    <button id="showDataCookie">Показать сохраненные данные</button>
+    <a href="index02.html" >Cookie</a>
+
+    <script>
+        // Функция для установки cookie
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + d.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        // Функция для получения cookie
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+           
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+
+            const phonePattern = /^[0-9]{10}$/; 
+            const phonePat = /^\+\d{3} \(\d{2}\) \d{3}[-\w]+\d{2}[-\w]+\d{2}$/;
+            if (!phonePat.test(phone)) {
+                alert('Пожалуйста, введите корректный номер телефона.');
+                return; 
+            }
+
+
+            if (message.trim() === '') {
+                alert('Сообщение не должно быть пустым.');
+                return;
+            }
+
+
+            const data = {
+                name: name,
+                phone: phone,
+                message: message
+            };
+
+          
+            const jsonData = JSON.stringify(data, null, 2);
+
+            setCookie('formDataCookie', jsonData, 7);
+            localStorage.setItem('formData', jsonData);
+            if (setCookie('formDataCookie', jsonData, 7) && localStorage.setItem('formData', jsonData)) alert('Данные успешно сохранены:\n' + jsonData);
+
+     
+            
+            
+
+        
+            this.reset();
+        });
+
+        document.getElementById('showData').addEventListener('click', function() {
+         
+            const jsonData = localStorage.getItem('formData');
+
+          
+            if (jsonData) {
+           
+                alert('Сохраненные данные:\n' + jsonData);
+            } else {
+                alert('Нет сохраненных данных.');
+            }
+        });
+
+        document.getElementById('showDataJSON').addEventListener('click', function() {
+
+            const jsonData = localStorage.getItem('formData');
+
+         
+            if (jsonData) {
+  
+                const parsedData = JSON.parse(jsonData);
+                alert(`Сохраненные данные:\nИмя: ${parsedData.name}\nТелефон: ${parsedData.phone}\nСообщение: ${parsedData.message}`);
+            } else {
+                alert('Нет сохраненных данных.');
+            }
+        });
+
+        document.getElementById('showDataCookie').addEventListener('click', function() {
+            const savedData = getCookie('formDataCookie');
+            if (savedData) {
+                alert('Сохраненные данные:\n' + savedData);
+            } else {
+                alert('Нет сохраненных данных.');
+            }
+        });
+    </script>
+</body>
+</html>
+
+

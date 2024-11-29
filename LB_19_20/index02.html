@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сохранение и вывод данных в Cookie</title>
+</head>
+<body>
+    <p><a href="../index.html">На главную</a></p>
+    <form id="myForm">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="phone">Телефон:</label>
+        <input type="text" id="phone" name="phone" required><br><br>
+
+        <label for="message">Сообщение:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <button id="showData">Показать сохраненные данные</button>
+
+    <script>
+        // Функция для установки cookie
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + d.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        // Функция для получения cookie
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+
+            const phonePat = /^\+\d{3} \(\d{2}\) \d{3}[-\w]+\d{2}[-\w]+\d{2}$/;
+            if (!phonePat.test(phone)) {
+                alert('Пожалуйста, введите корректный номер телефона.');
+                return;
+            }
+
+       
+            if (message.trim() === '') {
+                alert('Сообщение не должно быть пустым.');
+                return;
+            }
+
+       
+            const data = {
+                name: name,
+                phone: phone,
+                message: message
+            };
+
+            const jsonData = JSON.stringify(data);
+
+            // Сохраняем JSON в cookie
+            setCookie('cookie', jsonData, 7); // Сохраняем на 7 дней
+
+
+            alert('Данные успешно сохранены:\n' + jsonData);
+
+            // Очищаем поля формы
+            this.reset();
+        });
+
+
+        document.getElementById('showData').addEventListener('click', function() {
+            const savedData = getCookie('cookie');
+            if (savedData) {
+                alert('Сохраненные данные:\n' + savedData);
+            } else {
+                alert('Нет сохраненных данных.');
+            }
+        });
+    </script>
+</body>
+</html>
