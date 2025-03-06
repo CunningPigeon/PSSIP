@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пользовательская форма</title>
+</head>
+<body>
+    <h2>Обратная связь</h2>
+    <p>Оставьте Ваши контактные данные и мы свяжемся с Вами</p>
+    <form action="process.php" method="POST">
+        <label for="name">Имя:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="email">Электронная почта:</label><br>
+        <input type="text" id="email" name="email" required><br><br>
+        
+        <input type="submit" value="Отправить">
+    </form>
+    <p>Мы не занимаемся рассылкой рекламных сообщений, а также не передаем контактные данные третьим лицам</p>
+    <p><a href="read_file.php">Посмотреть данные из файла 1.txt</a></p>
+    <p><a href="poliklinika.php">Посмотреть данные из файла policlinika.php</a></p>
+</body>
+</html>

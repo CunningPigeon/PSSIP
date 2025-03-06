@@ -79,13 +79,8 @@
 
             setCookie('formDataCookie', jsonData, 7);
             localStorage.setItem('formData', jsonData);
-            if (setCookie('formDataCookie', jsonData, 7) && localStorage.setItem('formData', jsonData)) alert('Данные успешно сохранены:\n' + jsonData);
-
-     
-            
-            
-
-        
+            if (setCookie('formDataCookie', jsonData, 7) && localStorage.setItem('formData', jsonData)) alert('Данные успешно сохранены:\n' + jsonData);       
+                    
             this.reset();
         });
 
